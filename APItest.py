@@ -48,11 +48,12 @@ class RiotAPI(object):
             Consts.URL['static'].format(      # format allows replacement of strings
                 proxy = self.region,
                 region = self.region,
+                #version = API_VERSIONS['static_data'],
                 url = api_url
                 ), 
             params = args
             )
-        #print response.url
+        print response.url
         return response.json()
 
 
@@ -84,3 +85,60 @@ class RiotAPI(object):
             version = Consts.API_VERSIONS['static_data'],
             ids = champ_id)
         return self.___request(api_url)
+
+    def get_ranked_stats(self, summ_id):
+        api_url = Consts.URL['summoner_ranked'].format(
+            region = self.region,
+            version = Consts.API_VERSIONS['stats'],
+            summonerId = summ_id)
+        return self._request(api_url)
+
+    def get_summary_stats(self, summ_id):
+        api_url = Consts.URL['summoner_summary'].format(
+            region = self.region,
+            version = Consts.API_VERSIONS['stats'],
+            summonerId = summ_id)
+        return self._request(api_url)
+
+    def get_league(self, summ_id):
+        api_url = Consts.URL['leagues'].format(
+            region = self.region,
+            version = Consts.API_VERSIONS['league'],
+            summonerId = summ_id)
+        return self._request(api_url)
+
+    def get_game_role(self, summ_id):
+        api_url = Consts.URL['game'].format(
+            region = self.region,
+            version = Consts.API_VERSIONS['stats'],
+            summonerId = summ_id)
+        return self._request(api_url)
+
+    def get_static_champ_info(self, champ_id):
+        api_url = Consts.URL['static'].format(
+            proxy = self.region,
+            region = self.region,
+            version = Consts.API_VERSIONS['static_data'],
+            ids = champ_id)
+        return self.___request(api_url)
+
+    def get_champ_ids(self):
+        api_url = Consts.URL['get_champ_id'].format(
+            proxy = self.region,
+            region = self.region,
+            version = Consts.API_VERSIONS['static_data'])
+        return self.___request(api_url)
+
+    def test_ids(self):
+        api_url = Consts.URL['champion_id'].format(
+            proxy = self.region,
+            region = self.region,
+            version = Consts.API_VERSIONS['static_data'])
+        return self._request(api_url)
+
+    def get_champ_roles(self, summ_id):
+        api_url = Consts.URL['game'].format(
+            region = self.region,
+            version = Consts.API_VERSIONS['stats'],
+            summonerId = summ_id)
+        return self._request(api_url)

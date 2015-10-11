@@ -20,7 +20,7 @@ class RiotAPI(object):
                 ), 
             params = args
             )
-        print response.url
+        #print response.url
         return response.json()
 
     def get_summoner_by_name(self, name):

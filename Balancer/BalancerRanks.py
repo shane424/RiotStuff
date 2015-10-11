@@ -4,6 +4,7 @@ divisionPoints = {
 	'BRONZEIII' : 14,
 	'BRONZEII' : 16,
 	'BRONZEI' : 18,
+	'UNRANKED' : 20,
 	'SILVERV' : 20,
 	'SILVERIV' : 22,
 	'SILVERIII' : 24,

@@ -1,8 +1,8 @@
 from BalancerAPI import RiotAPI
 import BalancerRanks as bb
 import time
-
-api = RiotAPI('aa49edcc-f51c-4726-8ebd-c524856053a8')
+import pKey as pKey
+api = RiotAPI(pKey.api_key)
 
 def getNames():
 	names = [None] * 10
@@ -14,16 +14,16 @@ def getNames():
 def addTeams():
 	#names = getNames()
 	names = ['shriuken154',
-			  'astrixa',
-			  'finley',
-			   'finley',
-			   'jedithor',
-			   'mugyou2',
-			   'snorelacks',
-			   'physio',
-			   'mdragon14',
-			   'yourmomse',
-			   'kathliks']
+		  'astrixa',
+		  'finley',
+		   'finley',
+		   'jedithor',
+		   'mugyou2',
+		   'snorelacks',
+		   'physio',
+		   'mdragon14',
+		   'yourmomse',
+		   'kathliks']
 
 	points = bb.divisionPoints
 	theStuff = {}

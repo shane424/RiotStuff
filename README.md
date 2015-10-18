@@ -1,2 +1,6 @@
 # RiotStuff
-Playing around with the RiotAPI
+Projects that work with Riot's API.
+Projects:
+    Balancer - A team balancer which takes in ten summoner names and outputs two
+    five man teams with similar MMRs. Used for local LAN events on campus.
+    

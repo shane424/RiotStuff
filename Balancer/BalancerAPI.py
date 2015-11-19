@@ -1,4 +1,3 @@
-#www.youtube.com/watch?v=0NycEiHOeX8
 import requests
 import RiotConsts as Consts
 

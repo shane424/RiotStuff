@@ -1,82 +1,69 @@
-#from BalancerAPI import RiotAPI
-#import BalancerRanks as bb
+from TheAPI import RiotAPI
+import LeagueRanks as lr
 import time
 import pKey as pKey
 import csv
-#api = RiotAPI(pKey.api_key)
+import math
+
+api = RiotAPI(pKey.pkey)
+numb_of_cols = [5,8,11,14] # Number for how many players are in CSV
+poss_cols = [2,4,7,10,13] # Number for column of summoner name
 
 def readCSV():
-    theDict = {}
     cur_col = 1
-    cur_row = 0
+    cur_row = 1
     count = 0
     filename = raw_input('Enter the csv files name. (Without .csv)')
     
     with open(filename+'.csv','rb') as f:
-        reader = csv.reader(f,delimiter='\t')
+        reader = csv.reader(f)
         num_cols = len(next(reader))
+        theDict = [None] * int(math.ceil(float(num_cols)/float(3))) # I'm sure theres a way to make this look nicer
         for row in reader:
-            print(row)
             if(cur_row == 1):
                 for col in row:
-                    print(col)
-                    if(num_cols == 5):
-                        if(cur_col == 2):
-                            theDict[col] = col
+                    if(num_cols in numb_of_cols):
+                        if(cur_col in poss_cols):
+                            theDict[count] = col
+                            cur_col += 1
                             count += 1
-                        elif(cur_col == 4):
-                            theDict[col] = count
-                            count += 1
-                        cur_col += 1
-                    elif(num_cols == 8):
-                        if(cur_col == 2):
-                            theDict[col] = count
-                            count += 1
-                        elif(cur_col == 4):
-                            theDict[col] = count
-                            count += 1
-                        elif(cur_col == 7):
-                            theDict[col] = count
-                            count += 1
-                        cur_col += 1
-                    elif(num_cols == 11):
-                        if(cur_col == 2):
-                            theDict[col] = count
-                            count += 1
-                        elif(cur_col == 4):
-                            theDict[col] = count
-                            count += 1
-                        elif(cur_coll == 7):
-                            theDict[col] = count
-                            count += 1
-                        elif(cur_col == 10):
-                            theDict[col] = count
-                            count += 1
-                        cur_col += 1
-                    elif(num_cols == 14):
-                        if(cur_col == 2):
-                            theDict[col] = count
-                            count += 1
-                        elif(cur_col == 4):
-                            theDict[col] = count
-                            count += 1
-                        elif(cur_coll == 7):
-                            theDict[col] = count
-                            count += 1
-                        elif(cur_col == 10):
-                            theDict[col] = count
-                            count += 1
-                        elif(cur_col == 13):
-                            theDict[col] = count
-                            count += 1
-                        cur_col += 1
-            else:
+                        else:
+                            cur_col += 1
+                    else:
+                        print("Format error")
                 cur_row += 1
     return theDict
 
+def getRank():
+	names = readCSV() # Retrieve dictionary of names
+	print(names)
+	points = lr.divisionPoints
+	theStuff = {}
+	print(enumerate(names))
+	for name, val in (enumerate(names)):
+		idd = api.get_summoner_by_name(names[name])
+		print(idd)
+		theId = idd[val]['id']
+		mm = str(theId)
+		try:
+			tier = api.get_rank(theId)[mm][0]['tier']
+			div = api.get_rank(theId)[mm][0]['entries'][0]['division']
+		except ValueError:
+			tier = 'UNRANKED'
+			div = ''
+		theStuff[val] = tier + div
+		time.sleep(4)
+	return theStuff
+
+def writeCSV():
+    myDict = getRank()
+    writer = csv.writer(open('output.csv','wb'))
+    writer.writerow(myDict.keys())
+    writer.writerow(myDict.values())
+    
+
 def main():
-    new = readCSV()
-    print new
+    writeCSV()
 
 if __name__ == "__main__":
     main()

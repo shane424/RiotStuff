@@ -18,10 +18,12 @@ def readCSV():
     with open(filename+'.csv','rb') as f:
         reader = csv.reader(f)
         num_cols = len(next(reader))
+        print(num_cols)
         theDict = [None] * int(math.ceil(float(num_cols)/float(3))) # I'm sure theres a way to make this look nicer
         for row in reader:
             if(cur_row == 1):
                 for col in row:
+                    print(col)
                     if(num_cols in numb_of_cols):
                         if(cur_col in poss_cols):
                             theDict[count] = col
@@ -36,13 +38,10 @@ def readCSV():
 
 def getRank():
 	names = readCSV() # Retrieve dictionary of names
-	print(names)
 	points = lr.divisionPoints
 	theStuff = {}
-	print(enumerate(names))
 	for name, val in (enumerate(names)):
 		idd = api.get_summoner_by_name(names[name])
-		print(idd)
 		theId = idd[val]['id']
 		mm = str(theId)
 		try:

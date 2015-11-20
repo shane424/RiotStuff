@@ -1,5 +1,5 @@
 # RiotStuff
-Projects that work with Riot's API.
+Projects that work with Riot's API. \n
 Projects:
     Balancer (Basic program completed) - A team balancer which takes in ten summoner names and outputs two
             five man teams with similar MMRs. Used for local LAN events on campus.
